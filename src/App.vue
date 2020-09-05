@@ -28,6 +28,10 @@ body {
   background-color: #f05b56;
 }
 
+button:focus {
+  outline:0;
+}
+
 #app {
   min-height: 100vh;
   display: flex;
