@@ -1,28 +1,54 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="container">
+      <pomodoro-timer />
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import PomodoroTimer from '@/components/PomodoroTimer'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    'pomodoro-timer': PomodoroTimer
   }
 }
 </script>
 
 <style>
+@import 'assets/css/normalize.css';
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f05b56;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  padding: 1em;
+}
+
+@media (min-width: 599px) {
+  .container {
+    width: 80%;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 400px;
+  }
 }
 </style>
