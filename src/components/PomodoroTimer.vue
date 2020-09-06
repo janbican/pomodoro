@@ -4,8 +4,8 @@
     <time-display :seconds="seconds" />
     
     <div class="button-group">
-      <button @click="startCountDown">Start</button>
-      <button @click="stopCountDown">Stop</button>
+      <button v-if="!isRunning" class="btn" @click="startCountDown">Start</button>
+      <button v-else class="btn" @click="stopCountDown">Stop</button>
     </div>
   </div>
 </template>
@@ -39,11 +39,13 @@ export default {
   methods: {
     startCountDown() {
       this.timer = setInterval(() => {
-      this.seconds -= 1
+        this.seconds -= 1
       }, 1000)
+      this.isRunning = true
     },
     stopCountDown() {
       clearInterval(this.timer)
+      this.isRunning = false
     },
     modeChange(option) {
       this.currentMode = option
@@ -57,13 +59,33 @@ export default {
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 1em;
-  border: 1px solid white;
+  padding: 2em;
+  background-color: #ff6e67;
 }
 
 .mode {
   margin-top: 2em;
   color: white;
   font-size: 2em;
+}
+
+.button-group {
+  width: 100%;
+  text-align: center;
+}
+
+.btn {
+  width: 60%;
+  padding: .6em;
+  background-color: #ffffff;
+  color: #ff6e67;
+  border: none;
+  font-size: 1.4em;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  opacity: 0.9;
 }
 </style>

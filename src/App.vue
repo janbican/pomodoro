@@ -31,7 +31,7 @@ body {
 }
 
 button:focus {
-  outline:0;
+  outline: 0;
 }
 
 #app {
@@ -54,7 +54,7 @@ button:focus {
 
 @media (min-width: 768px) {
   .container {
-    width: 400px;
+    width: 500px;
   }
 }
 </style>
