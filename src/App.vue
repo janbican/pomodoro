@@ -19,6 +19,7 @@ export default {
 
 <style>
 @import 'assets/css/normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;400;700&display=swap');
 
 html {
   box-sizing: border-box;
@@ -26,6 +27,7 @@ html {
 
 body {
   background-color: #f05b56;
+  font-family: 'Kumbh Sans', sans-serif;
 }
 
 button:focus {
