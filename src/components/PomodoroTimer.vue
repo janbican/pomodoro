@@ -23,9 +23,9 @@ export default {
   data() {
     return {
       modes: [
-        { text: 'Pomodoro', value: 'pomodoro' },
-        { text: 'Short Break', value: 'short-break' },
-        { text: 'Long Break', value: 'long-break' }
+        { text: 'Pomodoro', value: 1500 },
+        { text: 'Short Break', value: 300 },
+        { text: 'Long Break', value: 600 }
       ],
       currentMode: null,
       isRunning: false,
@@ -35,6 +35,7 @@ export default {
   },
   created() {
     this.currentMode = this.modes[0]
+    this.seconds = this.currentMode.value
   },
   methods: {
     startCountDown() {
@@ -48,7 +49,10 @@ export default {
       this.isRunning = false
     },
     modeChange(option) {
+      this.stopCountDown()
+      this.seconds = option.value
       this.currentMode = option
+      this.startCountDown()
     }
   }
 }
