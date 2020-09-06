@@ -1,19 +1,24 @@
 <template>
   <div id="pomodoro-timer">
     <time-mode-choice :options="modes" :selected="currentMode" @change="modeChange"/>
-    <div class="mode">
-      {{ currentMode.text }}
+    <time-display :seconds="seconds" />
+    
+    <div class="button-group">
+      <button @click="startCountDown">Start</button>
+      <button @click="stopCountDown">Stop</button>
     </div>
   </div>
 </template>
 
 <script>
 import GroupChoice from '@/components/GroupChoice'
+import TimeDisplay from '@/components/TimeDisplay'
 
 export default {
   name: 'PomodoroTimer',
   components: {
-    'time-mode-choice': GroupChoice
+    'time-mode-choice': GroupChoice,
+    'time-display': TimeDisplay
   },
   data() {
     return {
@@ -22,13 +27,24 @@ export default {
         { text: 'Short Break', value: 'short-break' },
         { text: 'Long Break', value: 'long-break' }
       ],
-      currentMode: null
+      currentMode: null,
+      isRunning: false,
+      seconds: 61,
+      timer: null
     }
   },
   created() {
     this.currentMode = this.modes[0]
   },
   methods: {
+    startCountDown() {
+      this.timer = setInterval(() => {
+      this.seconds -= 1
+      }, 1000)
+    },
+    stopCountDown() {
+      clearInterval(this.timer)
+    },
     modeChange(option) {
       this.currentMode = option
     }
