@@ -1,12 +1,22 @@
 <template>
-  <div class="pomodoro-timer" :style="backgroundStyle" >
-    <time-mode-choice :options="modes" :selected="selectedMode" @change="modeChange"/>
+  <div class="pomodoro-timer" :style="backgroundStyle">
+    <time-mode-choice
+      :options="modes"
+      :selected="selectedMode"
+      @change="modeChange"
+    />
     <time-display :seconds="seconds" />
-    
+
     <div class="button-group">
-      <button v-if="isFinished" class="btn reset-btn" @click="reset">Reset</button>
-      <button v-else-if="!isRunning" class="btn" @click="start">Start</button>
-      <button v-else class="btn" @click="stop">Stop</button>
+      <button v-if="isFinished" class="btn reset-btn" @click="reset">
+        Reset
+      </button>
+      <button v-else-if="!isRunning" class="btn" @click="start">
+        Start
+      </button>
+      <button v-else class="btn" @click="stop">
+        Stop
+      </button>
     </div>
   </div>
 </template>
@@ -62,7 +72,9 @@ export default {
       this.changeColor()
     },
     playSound() {
-      const audio = new Audio('http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3')
+      const audio = new Audio(
+        'http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3'
+      )
       audio.play()
     },
     changeColor() {
@@ -107,7 +119,7 @@ export default {
 
 .btn {
   width: 60%;
-  padding: .6em;
+  padding: 0.6em;
   background-color: #ffffff;
   color: #ff6e67;
   border: none;

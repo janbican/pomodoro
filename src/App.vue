@@ -1,7 +1,7 @@
 <template>
-  <div class="app" :class="{ finished : finished }">
+  <div class="app" :class="{ finished: finished }">
     <div class="container">
-      <pomodoro-timer @changeColor="finished = !finished"/>
+      <pomodoro-timer @changeColor="finished = !finished" />
     </div>
   </div>
 </template>
@@ -16,7 +16,7 @@ export default {
   },
   data() {
     return {
-      finished: false,
+      finished: false
     }
   }
 }

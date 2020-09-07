@@ -1,9 +1,11 @@
 <template>
   <div>
-    <button v-for="option in options"
-            :key="option.value"
-            :class="{ selected: option === selected }"
-            @click="click(option)">
+    <button
+      v-for="option in options"
+      :key="option.value"
+      :class="{ selected: option === selected }"
+      @click="click(option)"
+    >
       {{ option.text }}
     </button>
   </div>
@@ -29,11 +31,11 @@ button {
   border: 1px solid transparent;
   background: none;
   border-radius: 5px;
-  padding: .6em .8em .45em;
+  padding: 0.6em 0.8em 0.45em;
   cursor: pointer;
   color: #fff;
 }
-  
+
 .selected {
   border: 1px dashed #ffffff;
 }
