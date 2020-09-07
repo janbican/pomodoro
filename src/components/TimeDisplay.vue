@@ -7,10 +7,10 @@
 <script>
 export default {
   name: 'TimeDisplay',
-  props: {
-    seconds: Number
-  },
   computed: {
+    seconds() {
+      return this.$store.state.seconds
+    },
     secondsInString() {
       const seconds = this.seconds % 60
       const minutes = Math.floor(this.seconds / 60)

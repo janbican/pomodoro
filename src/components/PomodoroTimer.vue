@@ -5,7 +5,7 @@
       :selected="selectedMode"
       @change="modeChange"
     />
-    <time-display :seconds="seconds" />
+    <time-display />
 
     <div class="button-group">
       <button v-if="isFinished" class="btn reset-btn" @click="reset">
@@ -33,25 +33,14 @@ export default {
   },
   data() {
     return {
-      modes: [
-        { text: 'Pomodoro', value: 10 },
-        { text: 'Short Break', value: 3 },
-        { text: 'Long Break', value: 5 }
-      ],
-      selectedMode: null,
       isRunning: false,
-      seconds: null,
       timer: null
     }
-  },
-  created() {
-    this.selectedMode = this.modes[0]
-    this.seconds = this.selectedMode.value
   },
   methods: {
     start() {
       this.timer = setInterval(() => {
-        this.seconds -= 1
+        this.$store.commit('decrementSeconds')
         if (this.seconds === 0) {
           this.finish()
         }
@@ -63,13 +52,11 @@ export default {
       this.isRunning = false
     },
     reset() {
-      this.seconds = this.selectedMode.value
-      this.changeColor()
+      this.$store.commit('setMode', this.selectedMode)
     },
     finish() {
       this.stop()
       this.playSound()
-      this.changeColor()
     },
     playSound() {
       const audio = new Audio(
@@ -77,22 +64,24 @@ export default {
       )
       audio.play()
     },
-    changeColor() {
-      // rodiče upozorňuje, že má změnit barvu
-      this.$emit('changeColor')
-    },
     modeChange(option) {
       this.stop()
-      // jen je-li ukončeno, jinak změna barvy nesmí proběhnout
-      if (this.isFinished) this.changeColor()
-      this.seconds = option.value
-      this.selectedMode = option
+      this.$store.commit('setMode', option)
       this.start()
     }
   },
   computed: {
+    seconds() {
+      return this.$store.state.seconds
+    },
+    modes() {
+      return this.$store.state.modes
+    },
+    selectedMode() {
+      return this.$store.state.selectedMode
+    },
     isFinished() {
-      return this.seconds === 0
+      return this.$store.getters.isFinished
     },
     backgroundStyle() {
       return {
@@ -108,7 +97,7 @@ export default {
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 2em;
+  padding: 2.5em 2em;
   border-radius: 5px;
 }
 

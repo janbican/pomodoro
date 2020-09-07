@@ -1,7 +1,7 @@
 <template>
-  <div class="app" :class="{ finished: finished }">
+  <div class="app" :class="{ finished: isFinished }">
     <div class="container">
-      <pomodoro-timer @changeColor="finished = !finished" />
+      <pomodoro-timer />
     </div>
   </div>
 </template>
@@ -14,9 +14,9 @@ export default {
   components: {
     'pomodoro-timer': PomodoroTimer
   },
-  data() {
-    return {
-      finished: false
+  computed: {
+    isFinished() {
+      return this.$store.getters.isFinished
     }
   }
 }
