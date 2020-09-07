@@ -1,11 +1,12 @@
 <template>
-  <div id="pomodoro-timer">
+  <div class="pomodoro-timer" :style="timerStyle" >
     <time-mode-choice :options="modes" :selected="currentMode" @change="modeChange"/>
     <time-display :seconds="seconds" />
     
     <div class="button-group">
-      <button v-if="!isRunning" class="btn" @click="startCountDown">Start</button>
-      <button v-else class="btn" @click="stopCountDown">Stop</button>
+      <button v-if="isFinished" class="btn" @click="reset">Reset</button>
+      <button v-else-if="!isRunning" class="btn" @click="start">Start</button>
+      <button v-else class="btn" @click="stop">Stop</button>
     </div>
   </div>
 </template>
@@ -23,9 +24,9 @@ export default {
   data() {
     return {
       modes: [
-        { text: 'Pomodoro', value: 1500 },
-        { text: 'Short Break', value: 300 },
-        { text: 'Long Break', value: 600 }
+        { text: 'Pomodoro', value: 10 },
+        { text: 'Short Break', value: 3 },
+        { text: 'Long Break', value: 5 }
       ],
       currentMode: null,
       isRunning: false,
@@ -38,39 +39,55 @@ export default {
     this.seconds = this.currentMode.value
   },
   methods: {
-    startCountDown() {
+    start() {
       this.timer = setInterval(() => {
         this.seconds -= 1
+        if (this.seconds === 0) {
+          this.stop()
+          this.playSound()
+        }
       }, 1000)
       this.isRunning = true
     },
-    stopCountDown() {
+    stop() {
       clearInterval(this.timer)
       this.isRunning = false
     },
+    reset() {
+      this.seconds = this.currentMode.value
+    },
+    playSound() {
+      const audio = new Audio('http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3')
+      audio.play()
+    },
     modeChange(option) {
-      this.stopCountDown()
+      this.stop()
       this.seconds = option.value
       this.currentMode = option
-      this.startCountDown()
+      this.start()
+    }
+  },
+  computed: {
+    isFinished() {
+      return this.seconds === 0
+    },
+    timerStyle() {
+      return {
+        backgroundColor: this.isFinished ? '#0fa4a9' : '#ff6e67'
+      }
     }
   }
 }
 </script>
 
 <style scoped>
-#pomodoro-timer {
+.pomodoro-timer {
   display: flex;
   align-items: center;
   flex-direction: column;
   padding: 2em;
-  background-color: #ff6e67;
-}
-
-.mode {
-  margin-top: 2em;
-  color: white;
-  font-size: 2em;
+  border-radius: 5px;
+  /* background-color: #ff6e67; */
 }
 
 .button-group {
@@ -85,7 +102,7 @@ export default {
   color: #ff6e67;
   border: none;
   font-size: 1.4em;
-  border-radius: 2px;
+  border-radius: 5px;
   cursor: pointer;
 }
 

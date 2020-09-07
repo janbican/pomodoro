@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="app">
     <div class="container">
       <pomodoro-timer />
     </div>
@@ -34,7 +34,7 @@ button:focus {
   outline: 0;
 }
 
-#app {
+.app {
   min-height: 100vh;
   display: flex;
   justify-content: center;
