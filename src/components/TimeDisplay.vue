@@ -1,5 +1,5 @@
 <template>
-  <div id="time-display">
+  <div class="time-display">
     <span>{{ secondsInString }}</span>
   </div>
 </template>
@@ -21,8 +21,8 @@ export default {
 </script>
 
 <style scoped>
-#time-display {
-  margin: 1em 0;
+.time-display {
+  margin: 1.4em 0;
 }
 
 span {

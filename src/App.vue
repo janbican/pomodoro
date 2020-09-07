@@ -1,7 +1,7 @@
 <template>
-  <div class="app">
+  <div class="app" :class="{ finished : finished }">
     <div class="container">
-      <pomodoro-timer />
+      <pomodoro-timer @changeColor="finished = !finished"/>
     </div>
   </div>
 </template>
@@ -13,6 +13,11 @@ export default {
   name: 'App',
   components: {
     'pomodoro-timer': PomodoroTimer
+  },
+  data() {
+    return {
+      finished: false,
+    }
   }
 }
 </script>
@@ -26,7 +31,6 @@ html {
 }
 
 body {
-  background-color: #f05b56;
   font-family: 'Kumbh Sans', sans-serif;
 }
 
@@ -39,11 +43,16 @@ button:focus {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #f05b56;
 }
 
 .container {
   width: 100%;
   padding: 1em;
+}
+
+.finished {
+  background-color: #0fa4a9;
 }
 
 @media (min-width: 599px) {

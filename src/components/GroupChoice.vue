@@ -2,7 +2,7 @@
   <div>
     <button v-for="option in options"
             :key="option.value"
-            :class="{ checked: option === selected }"
+            :class="{ selected: option === selected }"
             @click="click(option)">
       {{ option.text }}
     </button>
@@ -34,7 +34,7 @@ button {
   color: #fff;
 }
   
-.checked {
+.selected {
   border: 1px dashed #ffffff;
 }
 </style>

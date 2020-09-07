@@ -1,10 +1,10 @@
 <template>
-  <div class="pomodoro-timer" :style="timerStyle" >
-    <time-mode-choice :options="modes" :selected="currentMode" @change="modeChange"/>
+  <div class="pomodoro-timer" :style="backgroundStyle" >
+    <time-mode-choice :options="modes" :selected="selectedMode" @change="modeChange"/>
     <time-display :seconds="seconds" />
     
     <div class="button-group">
-      <button v-if="isFinished" class="btn" @click="reset">Reset</button>
+      <button v-if="isFinished" class="btn reset-btn" @click="reset">Reset</button>
       <button v-else-if="!isRunning" class="btn" @click="start">Start</button>
       <button v-else class="btn" @click="stop">Stop</button>
     </div>
@@ -28,23 +28,22 @@ export default {
         { text: 'Short Break', value: 3 },
         { text: 'Long Break', value: 5 }
       ],
-      currentMode: null,
+      selectedMode: null,
       isRunning: false,
-      seconds: 61,
+      seconds: null,
       timer: null
     }
   },
   created() {
-    this.currentMode = this.modes[0]
-    this.seconds = this.currentMode.value
+    this.selectedMode = this.modes[0]
+    this.seconds = this.selectedMode.value
   },
   methods: {
     start() {
       this.timer = setInterval(() => {
         this.seconds -= 1
         if (this.seconds === 0) {
-          this.stop()
-          this.playSound()
+          this.finish()
         }
       }, 1000)
       this.isRunning = true
@@ -54,16 +53,28 @@ export default {
       this.isRunning = false
     },
     reset() {
-      this.seconds = this.currentMode.value
+      this.seconds = this.selectedMode.value
+      this.changeColor()
+    },
+    finish() {
+      this.stop()
+      this.playSound()
+      this.changeColor()
     },
     playSound() {
       const audio = new Audio('http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3')
       audio.play()
     },
+    changeColor() {
+      // rodiče upozorňuje, že má změnit barvu
+      this.$emit('changeColor')
+    },
     modeChange(option) {
       this.stop()
+      // jen je-li ukončeno, jinak změna barvy nesmí proběhnout
+      if (this.isFinished) this.changeColor()
       this.seconds = option.value
-      this.currentMode = option
+      this.selectedMode = option
       this.start()
     }
   },
@@ -71,9 +82,9 @@ export default {
     isFinished() {
       return this.seconds === 0
     },
-    timerStyle() {
+    backgroundStyle() {
       return {
-        backgroundColor: this.isFinished ? '#0fa4a9' : '#ff6e67'
+        backgroundColor: this.isFinished ? '#3eb6ba' : '#ff6e67'
       }
     }
   }
@@ -87,7 +98,6 @@ export default {
   flex-direction: column;
   padding: 2em;
   border-radius: 5px;
-  /* background-color: #ff6e67; */
 }
 
 .button-group {
@@ -104,6 +114,10 @@ export default {
   font-size: 1.4em;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.reset-btn {
+  color: #3eb6ba;
 }
 
 .btn:hover {
