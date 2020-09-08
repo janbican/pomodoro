@@ -22,7 +22,7 @@ export default {
 
 <style scoped>
 .time-display {
-  margin: 1.4em 0;
+  margin: 0.5em 0 1.4em;
 }
 
 span {

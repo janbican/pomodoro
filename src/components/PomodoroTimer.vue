@@ -5,6 +5,9 @@
       :selected="selectedMode"
       @change="modeChange"
     />
+
+    <progress-bar :value="seconds" :maximum="selectedMode.value" />
+
     <time-display />
 
     <div class="button-group">
@@ -23,12 +26,14 @@
 
 <script>
 import GroupChoice from '@/components/GroupChoice'
+import ProgressBar from '@/components/ProgressBar'
 import TimeDisplay from '@/components/TimeDisplay'
 
 export default {
   name: 'PomodoroTimer',
   components: {
     'time-mode-choice': GroupChoice,
+    'progress-bar': ProgressBar,
     'time-display': TimeDisplay
   },
   data() {
