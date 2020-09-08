@@ -1,6 +1,8 @@
 <template>
   <div class="app" :class="{ finished: isFinished }">
-    <button class="settings-btn" @click="showSettings">Settings</button>
+    <a class="settings-icon" @click="showSettings">
+      <font-awesome-icon icon="sliders-h" />
+    </a>
     <settings-modal />
 
     <div class="container">
@@ -65,10 +67,13 @@ button:focus {
   background-color: #0fa4a9;
 }
 
-.settings-btn {
+.settings-icon {
   position: absolute;
   top: 1em;
   right: 1em;
+  font-size: 2em;
+  color: #ffffff;
+  cursor: pointer;
 }
 
 @media (min-width: 599px) {
