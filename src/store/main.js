@@ -16,6 +16,9 @@ export const store = new Vuex.Store({
   getters: {
     isFinished(state) {
       return state.seconds === 0
+    },
+    pomodoroValue() {
+      return pomodoro.value
     }
   },
   mutations: {
@@ -25,6 +28,9 @@ export const store = new Vuex.Store({
     setMode(state, option) {
       state.selectedMode = option
       state.seconds = option.value
+    },
+    setPomodoroValue(state, value) {
+      pomodoro.value = value
     }
   },
   actions: {}

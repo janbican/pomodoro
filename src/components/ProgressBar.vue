@@ -1,5 +1,5 @@
 <template>
-  <div class="progress-bar" :style="backgroundStyle">
+  <div class="progress-bar">
     <div class="bar" :style="barStyle"></div>
   </div>
 </template>

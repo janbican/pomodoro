@@ -1,5 +1,8 @@
 <template>
   <div class="app" :class="{ finished: isFinished }">
+    <button class="settings-btn" @click="showSettings">Settings</button>
+    <settings-modal />
+
     <div class="container">
       <pomodoro-timer />
     </div>
@@ -7,12 +10,19 @@
 </template>
 
 <script>
+import SettingsModal from '@/components/SettingsModal'
 import PomodoroTimer from '@/components/PomodoroTimer'
 
 export default {
   name: 'App',
   components: {
+    'settings-modal': SettingsModal,
     'pomodoro-timer': PomodoroTimer
+  },
+  methods: {
+    showSettings() {
+      this.$modal.show('modal')
+    }
   },
   computed: {
     isFinished() {
@@ -53,6 +63,12 @@ button:focus {
 
 .finished {
   background-color: #0fa4a9;
+}
+
+.settings-btn {
+  position: absolute;
+  top: 1em;
+  right: 1em;
 }
 
 @media (min-width: 599px) {
