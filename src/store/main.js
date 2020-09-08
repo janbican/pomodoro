@@ -11,7 +11,8 @@ export const store = new Vuex.Store({
   state: {
     modes: [pomodoro, shortBreak, longBreak],
     selectedMode: pomodoro,
-    seconds: pomodoro.value
+    seconds: pomodoro.value,
+    volume: 0.5
   },
   getters: {
     isFinished(state) {
@@ -19,6 +20,12 @@ export const store = new Vuex.Store({
     },
     pomodoroValue() {
       return pomodoro.value
+    },
+    shortBreakValue() {
+      return shortBreak.value
+    },
+    longBreakValue() {
+      return longBreak.value
     }
   },
   mutations: {
@@ -29,8 +36,13 @@ export const store = new Vuex.Store({
       state.selectedMode = option
       state.seconds = option.value
     },
-    setPomodoroValue(state, value) {
-      pomodoro.value = value
+    applySettingsChange(state, payload) {
+      pomodoro.value = payload.pomodoro
+      shortBreak.value = payload.shortBreak
+      longBreak.value = payload.longBreak
+      state.volume = payload.volume
+
+      state.seconds = state.selectedMode.value
     }
   },
   actions: {}
