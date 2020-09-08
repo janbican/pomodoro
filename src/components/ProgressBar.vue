@@ -14,7 +14,7 @@ export default {
   computed: {
     barStyle() {
       return {
-        width: `${(this.value / this.maximum) * 100}%`
+        width: `${100 - (this.value / this.maximum) * 100}%`
       }
     }
   }
@@ -26,11 +26,11 @@ export default {
   margin-top: 2em;
   width: 75%;
   height: 2px;
-  background-color: #ffffff;
+  background-color: #f05b56;
 }
 
 .bar {
-  background-color: #f05b56;
+  background-color: #ffffff;
   width: 10%;
   height: 2px;
 }
