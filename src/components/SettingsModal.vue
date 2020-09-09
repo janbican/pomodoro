@@ -1,11 +1,11 @@
 <template>
   <div class="settings-modal">
-    <modal name="modal" :adaptive="true" :max-width="500" title="Settings">
+    <modal name="modal" :adaptive="true" :max-width="400" title="Settings">
       <div class="modal-content">
         <h3>Settings</h3>
         <hr />
-        <div class="time-settings">
-          <div>
+        <div class="time-settings-container">
+          <div class="time-settings">
             <label for="pomodoro">Pomodoro:</label>
             <input
               type="number"
@@ -16,7 +16,7 @@
               max="99"
             />
           </div>
-          <div>
+          <div class="time-settings">
             <label for="shortBreak">Short Break:</label>
             <input
               type="number"
@@ -27,7 +27,7 @@
               max="99"
             />
           </div>
-          <div>
+          <div class="time-settings">
             <label for="longBreak">Long Break:</label>
             <input
               type="number"
@@ -40,7 +40,7 @@
           </div>
         </div>
 
-        <div class="slidecontainer">
+        <div class="volume-container">
           <label for="volume">Volume</label>
           <input
             type="range"
@@ -48,9 +48,16 @@
             max="100"
             v-model.number="volume"
             id="volume"
+            class="volume-slider"
           />
         </div>
-        <button @click="save">Save</button>
+
+        <hr />
+
+        <div class="button-container">
+          <button @click="save">Save</button>
+          <button @click="cancel">Cancel</button>
+        </div>
       </div>
     </modal>
   </div>
@@ -82,6 +89,9 @@ export default {
       }
       this.$store.commit('applySettingsChange', settings)
       this.$modal.hide('modal')
+    },
+    cancel() {
+      this.$modal.hide('modal')
     }
   },
   computed: {
@@ -104,11 +114,96 @@ export default {
 <style scoped>
 .modal-content {
   padding: 1em;
+  width: 93%;
 }
 
 h3 {
   font-weight: 400;
   font-size: 1.2em;
   margin: 0.5em 0;
+}
+
+label {
+  margin-bottom: 0.5em;
+}
+
+button {
+  padding: 0.7em 1em;
+  margin-right: 0.6em;
+  min-width: 100px;
+  background-color: #f05b56;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+}
+
+.time-settings-container {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.time-settings {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  padding-right: 1em;
+}
+
+.time-settings input {
+  padding: 0.6em;
+  width: 80%;
+  background-color: #eeeeee;
+  border: none;
+  border-radius: 5px;
+}
+
+.time-settings input:focus {
+  outline: none;
+}
+
+.volume-container {
+  margin: 1.2em 0 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.volume-slider {
+  -webkit-appearance: none;
+  width: 70%;
+  height: 10px;
+  background: #dddddd;
+  outline: none;
+  border-radius: 5px;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #f05b56;
+  cursor: pointer;
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #f05b56;
+  cursor: pointer;
+}
+
+.button-container {
+  text-align: right;
+}
+
+hr {
+  margin-bottom: 1em;
 }
 </style>
