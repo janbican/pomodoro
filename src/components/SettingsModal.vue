@@ -1,39 +1,39 @@
 <template>
   <div class="settings-modal">
-    <modal name="modal" :adaptive="true" :max-width="400" title="Settings">
-      <div class="modal-content">
+    <modal name="modal" :adaptive="true" :max-width="400">
+      <div class="modal-container">
         <h3>Settings</h3>
         <hr />
         <div class="time-settings-container">
           <div class="time-settings">
-            <label for="pomodoro">Pomodoro:</label>
+            <label for="pomodoro">Pomodoro</label>
             <input
               type="number"
               id="pomodoro"
               name="pomodoro"
-              v-model.number="pomodoro"
+              v-model.number="pomodoroValue"
               min="1"
               max="99"
             />
           </div>
           <div class="time-settings">
-            <label for="shortBreak">Short Break:</label>
+            <label for="shortBreak">Short Break</label>
             <input
               type="number"
               id="shortBreak"
               name="shortBreak"
-              v-model.number="shortBreak"
+              v-model.number="shortBreakValue"
               min="1"
               max="99"
             />
           </div>
           <div class="time-settings">
-            <label for="longBreak">Long Break:</label>
+            <label for="longBreak">Long Break</label>
             <input
               type="number"
               id="longBreak"
               name="longBreak"
-              v-model.number="longBreak"
+              v-model.number="longBreakValue"
               min="1"
               max="99"
             />
@@ -46,7 +46,7 @@
             type="range"
             min="0"
             max="100"
-            v-model.number="volume"
+            v-model.number="volumeValue"
             id="volume"
             class="volume-slider"
           />
@@ -55,8 +55,8 @@
         <hr />
 
         <div class="button-container">
-          <button @click="save">Save</button>
-          <button @click="cancel">Cancel</button>
+          <button class="btn" @click="save">Save</button>
+          <button class="btn" @click="cancel">Cancel</button>
         </div>
       </div>
     </modal>
@@ -64,30 +64,26 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
+
 export default {
   name: 'SettingsModal',
-  data() {
-    return {
-      pomodoro: null,
-      shortBreak: null,
-      longBreak: null
-    }
-  },
   created() {
-    this.pomodoro = this.pomodoroValue
-    this.shortBreak = this.shortBreakValue
-    this.longBreak = this.longBreakValue
-    this.volume = this.volumeValue * 100
+    this.pomodoroValue = this.pomodoroMinutes
+    this.shortBreakValue = this.shortBreakMinutes
+    this.longBreakValue = this.longBreakMinutes
+    this.volumeValue = this.volume * 100
   },
   methods: {
     save() {
       const settings = {
-        pomodoro: this.pomodoro,
-        shortBreak: this.shortBreak,
-        longBreak: this.longBreak,
-        volume: this.volume / 100
+        pomodoroMinutes: this.pomodoroValue,
+        shortBreakMinutes: this.shortBreakValue,
+        longBreakMinutes: this.longBreakValue,
+        volume: this.volumeValue / 100
       }
-      this.$store.commit('applySettingsChange', settings)
+      this.$store.commit('applySettings', settings)
       this.$modal.hide('modal')
     },
     cancel() {
@@ -95,24 +91,14 @@ export default {
     }
   },
   computed: {
-    pomodoroValue() {
-      return this.$store.getters.pomodoroValue
-    },
-    shortBreakValue() {
-      return this.$store.getters.shortBreakValue
-    },
-    longBreakValue() {
-      return this.$store.getters.longBreakValue
-    },
-    volumeValue() {
-      return this.$store.state.volume
-    }
+    ...mapGetters(['pomodoroMinutes', 'shortBreakMinutes', 'longBreakMinutes']),
+    ...mapState(['volume'])
   }
 }
 </script>
 
 <style scoped>
-.modal-content {
+.modal-container {
   padding: 1em;
   width: 93%;
 }
@@ -127,14 +113,8 @@ label {
   margin-bottom: 0.5em;
 }
 
-button {
-  padding: 0.7em 1em;
-  margin-right: 0.6em;
-  min-width: 100px;
-  background-color: #f05b56;
-  color: #ffffff;
-  border: none;
-  border-radius: 5px;
+hr {
+  margin-bottom: 1em;
 }
 
 .time-settings-container {
@@ -203,7 +183,13 @@ button {
   text-align: right;
 }
 
-hr {
-  margin-bottom: 1em;
+.btn {
+  padding: 0.7em 1em;
+  margin-right: 0.6em;
+  min-width: 100px;
+  background-color: #f05b56;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
 }
 </style>

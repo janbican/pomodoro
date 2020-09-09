@@ -5,16 +5,17 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'ProgressBar',
-  props: {
-    value: Number,
-    maximum: Number
-  },
   computed: {
+    ...mapState(['seconds', 'selectedMode']),
     barStyle() {
+      // percents of time already done
       return {
-        width: `${100 - (this.value / this.maximum) * 100}%`
+        width: `${100 -
+          (this.seconds / (this.selectedMode.minutes * 60)) * 100}%`
       }
     }
   }

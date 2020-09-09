@@ -1,12 +1,8 @@
 <template>
   <div class="pomodoro-timer" :style="backgroundStyle">
-    <time-mode-choice
-      :options="modes"
-      :selected="selectedMode"
-      @change="modeChange"
-    />
+    <mode-choice @change="modeChange" />
 
-    <progress-bar :value="seconds" :maximum="selectedMode.value" />
+    <progress-bar />
 
     <time-display />
 
@@ -25,14 +21,15 @@
 </template>
 
 <script>
-import GroupChoice from '@/components/GroupChoice'
+import ModeChoice from '@/components/ModeChoice'
 import ProgressBar from '@/components/ProgressBar'
 import TimeDisplay from '@/components/TimeDisplay'
+import { mapState } from 'vuex'
 
 export default {
   name: 'PomodoroTimer',
   components: {
-    'time-mode-choice': GroupChoice,
+    'mode-choice': ModeChoice,
     'progress-bar': ProgressBar,
     'time-display': TimeDisplay
   },
@@ -67,31 +64,19 @@ export default {
       const audio = new Audio(
         'http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3'
       )
-      console.log(this.volume)
       audio.volume = this.volume
       audio.play()
     },
-    modeChange(option) {
+    modeChange(mode) {
       this.stop()
-      this.$store.commit('setMode', option)
+      this.$store.commit('setMode', mode)
       this.start()
     }
   },
   computed: {
-    seconds() {
-      return this.$store.state.seconds
-    },
-    modes() {
-      return this.$store.state.modes
-    },
-    selectedMode() {
-      return this.$store.state.selectedMode
-    },
+    ...mapState(['seconds', 'selectedMode', 'volume']),
     isFinished() {
       return this.$store.getters.isFinished
-    },
-    volume() {
-      return this.$store.state.volume
     },
     backgroundStyle() {
       return {

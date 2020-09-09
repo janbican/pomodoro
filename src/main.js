@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import { store } from './store/main.js'
+import { store } from './store/index.js'
 import VModal from 'vue-js-modal'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
