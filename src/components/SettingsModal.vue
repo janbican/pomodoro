@@ -44,7 +44,7 @@
           <label for="volume">Volume</label>
           <input
             type="range"
-            min="1"
+            min="0"
             max="100"
             v-model.number="volume"
             id="volume"

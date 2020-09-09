@@ -67,6 +67,8 @@ export default {
       const audio = new Audio(
         'http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3'
       )
+      console.log(this.volume)
+      audio.volume = this.volume
       audio.play()
     },
     modeChange(option) {
@@ -87,6 +89,9 @@ export default {
     },
     isFinished() {
       return this.$store.getters.isFinished
+    },
+    volume() {
+      return this.$store.state.volume
     },
     backgroundStyle() {
       return {
