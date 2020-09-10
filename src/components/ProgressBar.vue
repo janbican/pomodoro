@@ -24,15 +24,15 @@ export default {
 
 <style scoped>
 .progress-bar {
-  margin-top: 2em;
-  width: 75%;
+  position: absolute;
+  top: 0;
+  width: 100%;
   height: 2px;
-  background-color: #f05b56;
 }
 
 .bar {
   background-color: #ffffff;
-  width: 10%;
   height: 2px;
+  border-radius: 5px;
 }
 </style>

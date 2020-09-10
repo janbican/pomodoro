@@ -52,6 +52,7 @@ button:focus {
 .app {
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: #f05b56;
@@ -66,12 +67,14 @@ button:focus {
 }
 
 .settings-icon {
-  position: absolute;
-  top: 1em;
-  right: 1em;
-  font-size: 2em;
+  font-size: 1.5em;
   color: #ffffff;
   cursor: pointer;
+  margin: 0.5em 0;
+  text-align: right;
+  display: block;
+  width: 100%;
+  margin-right: 1em;
 }
 
 @media (min-width: 599px) {
@@ -83,6 +86,16 @@ button:focus {
 @media (min-width: 768px) {
   .container {
     width: 500px;
+  }
+}
+
+@media (min-height: 400px) {
+  .settings-icon {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    font-size: 2em;
+    margin: 0;
   }
 }
 </style>

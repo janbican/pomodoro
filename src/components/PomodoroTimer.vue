@@ -1,8 +1,8 @@
 <template>
   <div class="pomodoro-timer" :style="backgroundStyle">
-    <mode-choice @change="modeChange" />
+    <progress-bar />
 
-    <!-- <progress-bar /> -->
+    <mode-choice @change="modeChange" />
 
     <time-display />
 
@@ -22,7 +22,7 @@
 
 <script>
 import ModeChoice from '@/components/ModeChoice'
-// import ProgressBar from '@/components/ProgressBar'
+import ProgressBar from '@/components/ProgressBar'
 import TimeDisplay from '@/components/TimeDisplay'
 import { mapMutations, mapState, mapGetters } from 'vuex'
 
@@ -30,7 +30,7 @@ export default {
   name: 'PomodoroTimer',
   components: {
     'mode-choice': ModeChoice,
-    // 'progress-bar': ProgressBar,
+    'progress-bar': ProgressBar,
     'time-display': TimeDisplay
   },
   data() {
@@ -84,6 +84,7 @@ export default {
 
 <style scoped>
 .pomodoro-timer {
+  position: relative;
   display: flex;
   align-items: center;
   flex-direction: column;
