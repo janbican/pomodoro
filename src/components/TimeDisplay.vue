@@ -22,13 +22,23 @@ export default {
 
 <style scoped>
 .time-display {
-  margin: 0.5em 0 1.4em;
+  margin: 1em 0;
 }
 
 span {
   font-family: Monaco, sans-serif;
-  font-size: 7em;
+  font-size: 5em;
   font-weight: 400;
   color: #ffffff;
+}
+
+@media (min-width: 599px) {
+  .time-display {
+    margin-bottom: 1.4em;
+  }
+
+  span {
+    font-size: 7.4em;
+  }
 }
 </style>

@@ -59,7 +59,6 @@ button:focus {
 
 .container {
   width: 100%;
-  padding: 1em;
 }
 
 .finished {

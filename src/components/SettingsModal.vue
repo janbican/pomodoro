@@ -1,6 +1,6 @@
 <template>
   <div class="settings-modal">
-    <modal name="modal" :adaptive="true" :max-width="400">
+    <modal name="modal" :adaptive="true" :max-width="400" :min-height="320">
       <div class="modal-container">
         <h3>Settings</h3>
         <hr />
@@ -64,8 +64,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'SettingsModal',
@@ -121,6 +120,7 @@ hr {
   display: flex;
   justify-content: center;
   text-align: center;
+  align-items: flex-end;
 }
 
 .time-settings {

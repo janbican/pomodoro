@@ -2,7 +2,7 @@
   <div class="pomodoro-timer" :style="backgroundStyle">
     <mode-choice @change="modeChange" />
 
-    <progress-bar />
+    <!-- <progress-bar /> -->
 
     <time-display />
 
@@ -22,7 +22,7 @@
 
 <script>
 import ModeChoice from '@/components/ModeChoice'
-import ProgressBar from '@/components/ProgressBar'
+// import ProgressBar from '@/components/ProgressBar'
 import TimeDisplay from '@/components/TimeDisplay'
 import { mapMutations, mapState, mapGetters } from 'vuex'
 
@@ -30,7 +30,7 @@ export default {
   name: 'PomodoroTimer',
   components: {
     'mode-choice': ModeChoice,
-    'progress-bar': ProgressBar,
+    // 'progress-bar': ProgressBar,
     'time-display': TimeDisplay
   },
   data() {
@@ -97,12 +97,11 @@ export default {
 }
 
 .btn {
-  width: 60%;
-  padding: 0.6em;
+  width: 46%;
+  padding: 0.5em 0 0.4em;
   background-color: #ffffff;
   color: #ff6e67;
   border: none;
-  font-size: 1.4em;
   border-radius: 5px;
   cursor: pointer;
 }
@@ -113,5 +112,13 @@ export default {
 
 .btn:hover {
   opacity: 0.9;
+}
+
+@media (min-width: 599px) {
+  .btn {
+    width: 60%;
+    font-size: 1.4em;
+    padding: 0.6em;
+  }
 }
 </style>
