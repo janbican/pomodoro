@@ -191,5 +191,10 @@ hr {
   color: #ffffff;
   border: none;
   border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  opacity: 0.9;
 }
 </style>

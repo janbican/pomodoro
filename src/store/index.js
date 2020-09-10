@@ -13,7 +13,8 @@ export const store = new Vuex.Store({
     modes: [pomodoro, shortBreak, longBreak],
     selectedMode: pomodoro,
     seconds: pomodoro.minutes * 60, // seconds remaining
-    volume: 0.5
+    volume: 0.5,
+    isRunning: false
   },
   getters: {
     isFinished(state) {
@@ -37,13 +38,18 @@ export const store = new Vuex.Store({
       state.selectedMode = option
       state.seconds = option.minutes * 60
     },
+    setIsRunning(state, value) {
+      state.isRunning = value
+    },
     applySettings(state, payload) {
       pomodoro.minutes = payload.pomodoroMinutes
       shortBreak.minutes = payload.shortBreakMinutes
       longBreak.minutes = payload.longBreakMinutes
       state.volume = payload.volume
 
-      state.seconds = state.selectedMode.minutes * 60
+      if (!state.isRunning) {
+        state.seconds = state.selectedMode.minutes * 60
+      }
     }
   }
 })

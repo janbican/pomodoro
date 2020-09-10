@@ -24,7 +24,7 @@
 import ModeChoice from '@/components/ModeChoice'
 import ProgressBar from '@/components/ProgressBar'
 import TimeDisplay from '@/components/TimeDisplay'
-import { mapState } from 'vuex'
+import { mapMutations, mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'PomodoroTimer',
@@ -35,30 +35,24 @@ export default {
   },
   data() {
     return {
-      isRunning: false,
       timer: null
     }
   },
   methods: {
+    ...mapMutations(['decrementSeconds', 'setIsRunning', 'setMode']),
     start() {
       this.timer = setInterval(() => {
-        this.$store.commit('decrementSeconds')
-        if (this.seconds === 0) {
-          this.finish()
+        this.decrementSeconds()
+        if (this.isFinished) {
+          this.stop()
+          this.playSound()
         }
       }, 1000)
-      this.isRunning = true
+      this.setIsRunning(true)
     },
     stop() {
       clearInterval(this.timer)
-      this.isRunning = false
-    },
-    reset() {
-      this.$store.commit('setMode', this.selectedMode)
-    },
-    finish() {
-      this.stop()
-      this.playSound()
+      this.setIsRunning(false)
     },
     playSound() {
       const audio = new Audio(
@@ -67,17 +61,18 @@ export default {
       audio.volume = this.volume
       audio.play()
     },
+    reset() {
+      this.setMode(this.selectedMode)
+    },
     modeChange(mode) {
       this.stop()
-      this.$store.commit('setMode', mode)
+      this.setMode(mode)
       this.start()
     }
   },
   computed: {
-    ...mapState(['seconds', 'selectedMode', 'volume']),
-    isFinished() {
-      return this.$store.getters.isFinished
-    },
+    ...mapState(['seconds', 'selectedMode', 'volume', 'isRunning']),
+    ...mapGetters(['isFinished']),
     backgroundStyle() {
       return {
         backgroundColor: this.isFinished ? '#3eb6ba' : '#ff6e67'

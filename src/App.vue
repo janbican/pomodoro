@@ -14,6 +14,7 @@
 <script>
 import SettingsModal from '@/components/SettingsModal'
 import PomodoroTimer from '@/components/PomodoroTimer'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'App',
@@ -27,9 +28,7 @@ export default {
     }
   },
   computed: {
-    isFinished() {
-      return this.$store.getters.isFinished
-    }
+    ...mapGetters(['isFinished'])
   }
 }
 </script>
