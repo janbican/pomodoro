@@ -1,33 +1,43 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
+import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
 // time modes
-const pomodoro = { text: 'Pomodoro', minutes: 25 }
-const shortBreak = { text: 'Short Break', minutes: 5 }
-const longBreak = { text: 'Long Break', minutes: 10 }
+// const pomodoro = { text: 'Pomodoro', minutes: 25 }
+// const shortBreak = { text: 'Short Break', minutes: 5 }
+// const longBreak = { text: 'Long Break', minutes: 10 }
 
 export const store = new Vuex.Store({
   state: {
-    modes: [pomodoro, shortBreak, longBreak],
-    selectedMode: pomodoro,
-    seconds: pomodoro.minutes * 60, // seconds remaining
+    modes: [
+      { text: 'Pomodoro', minutes: 25 },
+      { text: 'Short Break', minutes: 5 },
+      { text: 'Long Break', minutes: 10 }
+    ],
+    selectedMode: null,
+    seconds: 0, // seconds remaining
     volume: 0.5,
     isRunning: false
   },
+  plugins: [
+    createPersistedState({
+      paths: ['modes', 'volume']
+    })
+  ],
   getters: {
     isFinished(state) {
       return state.seconds === 0
     },
-    pomodoroMinutes() {
-      return pomodoro.minutes
+    pomodoroMinutes(state) {
+      return state.modes[0].minutes
     },
-    shortBreakMinutes() {
-      return shortBreak.minutes
+    shortBreakMinutes(state) {
+      return state.modes[1].minutes
     },
-    longBreakMinutes() {
-      return longBreak.minutes
+    longBreakMinutes(state) {
+      return state.modes[2].minutes
     }
   },
   mutations: {
@@ -42,9 +52,9 @@ export const store = new Vuex.Store({
       state.isRunning = value
     },
     applySettings(state, payload) {
-      pomodoro.minutes = payload.pomodoroMinutes
-      shortBreak.minutes = payload.shortBreakMinutes
-      longBreak.minutes = payload.longBreakMinutes
+      state.modes[0].minutes = payload.pomodoroMinutes
+      state.modes[1].minutes = payload.shortBreakMinutes
+      state.modes[2].minutes = payload.longBreakMinutes
       state.volume = payload.volume
 
       if (!state.isRunning) {
@@ -53,3 +63,6 @@ export const store = new Vuex.Store({
     }
   }
 })
+
+store.state.selectedMode = store.state.modes[0]
+store.state.seconds = store.state.selectedMode.minutes * 60
