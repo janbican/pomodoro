@@ -4,11 +4,6 @@ import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
-// time modes
-// const pomodoro = { text: 'Pomodoro', minutes: 25 }
-// const shortBreak = { text: 'Short Break', minutes: 5 }
-// const longBreak = { text: 'Long Break', minutes: 10 }
-
 export const store = new Vuex.Store({
   state: {
     modes: [
@@ -29,6 +24,11 @@ export const store = new Vuex.Store({
   getters: {
     isFinished(state) {
       return state.seconds === 0
+    },
+    secondsStringFormat(state) {
+      const seconds = state.seconds % 60
+      const minutes = Math.floor(state.seconds / 60)
+      return `${('0' + minutes).slice(-2)}:${('0' + seconds).slice(-2)}`
     },
     pomodoroMinutes(state) {
       return state.modes[0].minutes

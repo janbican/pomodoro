@@ -1,5 +1,7 @@
 <template>
   <div class="app" :class="{ finished: isFinished }">
+    <vue-headful :title="title" />
+
     <a class="settings-icon" @click="showSettings">
       <font-awesome-icon icon="sliders-h" />
     </a>
@@ -14,7 +16,7 @@
 <script>
 import SettingsModal from '@/components/SettingsModal'
 import PomodoroTimer from '@/components/PomodoroTimer'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'App',
@@ -28,7 +30,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['isFinished'])
+    ...mapGetters(['isFinished', 'secondsStringFormat']),
+    ...mapState(['isRunning']),
+    title() {
+      return this.isRunning ? this.secondsStringFormat : 'Pomodoro'
+    }
   }
 }
 </script>

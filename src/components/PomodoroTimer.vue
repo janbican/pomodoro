@@ -47,11 +47,13 @@ export default {
           this.stop()
           this.playSound()
         }
+        // document.title = this.secondsStringFormat
       }, 1000)
       this.setIsRunning(true)
     },
     stop() {
       clearInterval(this.timer)
+      // document.title = 'Pomodoro'
       this.setIsRunning(false)
     },
     playSound() {
@@ -72,7 +74,7 @@ export default {
   },
   computed: {
     ...mapState(['seconds', 'selectedMode', 'volume', 'isRunning']),
-    ...mapGetters(['isFinished']),
+    ...mapGetters(['isFinished', 'secondsStringFormat']),
     backgroundStyle() {
       return {
         backgroundColor: this.isFinished ? '#3eb6ba' : '#ff6e67'

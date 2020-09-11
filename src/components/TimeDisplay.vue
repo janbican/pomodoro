@@ -1,21 +1,16 @@
 <template>
   <div class="time-display">
-    <span>{{ secondsInString }}</span>
+    <span>{{ secondsStringFormat }}</span>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'TimeDisplay',
   computed: {
-    seconds() {
-      return this.$store.state.seconds
-    },
-    secondsInString() {
-      const seconds = this.seconds % 60
-      const minutes = Math.floor(this.seconds / 60)
-      return `${('0' + minutes).slice(-2)}:${('0' + seconds).slice(-2)}`
-    }
+    ...mapGetters(['secondsStringFormat'])
   }
 }
 </script>
