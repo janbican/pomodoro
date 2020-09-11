@@ -1,6 +1,6 @@
 <template>
   <div class="settings-modal">
-    <modal name="modal" :adaptive="true" :max-width="400" :min-height="320">
+    <modal name="modal" :adaptive="true" :max-width="400" :min-height="330">
       <div class="modal-container">
         <h3>Settings</h3>
         <hr />
@@ -52,6 +52,18 @@
           />
         </div>
 
+        <div class="title-container">
+          <label
+            >Show time in title
+            <input
+              type="checkbox"
+              checked="checked"
+              v-model="isTimeShownInTitleValue"
+            />
+            <span class="checkmark"></span>
+          </label>
+        </div>
+
         <hr />
 
         <div class="button-container">
@@ -68,11 +80,17 @@ import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'SettingsModal',
+  data() {
+    return {
+      isTimeShownInTitleValue: null
+    }
+  },
   created() {
     this.pomodoroValue = this.pomodoroMinutes
     this.shortBreakValue = this.shortBreakMinutes
     this.longBreakValue = this.longBreakMinutes
     this.volumeValue = this.volume * 100
+    this.isTimeShownInTitleValue = this.isTimeShownInTitle
   },
   methods: {
     save() {
@@ -80,7 +98,8 @@ export default {
         pomodoroMinutes: this.pomodoroValue,
         shortBreakMinutes: this.shortBreakValue,
         longBreakMinutes: this.longBreakValue,
-        volume: this.volumeValue / 100
+        volume: this.volumeValue / 100,
+        isTimeShownInTitle: this.isTimeShownInTitleValue
       }
       this.$store.commit('applySettings', settings)
       this.$modal.hide('modal')
@@ -91,7 +110,7 @@ export default {
   },
   computed: {
     ...mapGetters(['pomodoroMinutes', 'shortBreakMinutes', 'longBreakMinutes']),
-    ...mapState(['volume'])
+    ...mapState(['volume', 'isTimeShownInTitle'])
   }
 }
 </script>
@@ -177,6 +196,74 @@ hr {
   border-radius: 50%;
   background: #f05b56;
   cursor: pointer;
+}
+
+.title-container {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.title-container label {
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.title-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 1em;
+  width: 1em;
+  background-color: #eeeeee;
+}
+
+/* On mouse-over, add a grey background color */
+.title-container input ~ .checkmark {
+  background-color: #dddddd;
+}
+
+/* When the checkbox is checked, add a blue background */
+.title-container input:checked ~ .checkmark {
+  background-color: #f05b56;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.title-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.title-container .checkmark:after {
+  left: 4px;
+  width: 5px;
+  height: 10px;
+  border: solid #ffffff;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 .button-container {

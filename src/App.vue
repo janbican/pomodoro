@@ -31,9 +31,11 @@ export default {
   },
   computed: {
     ...mapGetters(['isFinished', 'secondsStringFormat']),
-    ...mapState(['isRunning']),
+    ...mapState(['isRunning', 'isTimeShownInTitle']),
     title() {
-      return this.isRunning ? this.secondsStringFormat : 'Pomodoro'
+      return this.isRunning && this.isTimeShownInTitle
+        ? this.secondsStringFormat
+        : 'Pomodoro'
     }
   }
 }

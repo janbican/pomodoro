@@ -14,11 +14,12 @@ export const store = new Vuex.Store({
     selectedMode: null,
     seconds: 0, // seconds remaining
     volume: 0.5,
-    isRunning: false
+    isRunning: false,
+    isTimeShownInTitle: true
   },
   plugins: [
     createPersistedState({
-      paths: ['modes', 'volume']
+      paths: ['modes', 'volume', 'isTimeShownInTitle']
     })
   ],
   getters: {
@@ -56,6 +57,7 @@ export const store = new Vuex.Store({
       state.modes[1].minutes = payload.shortBreakMinutes
       state.modes[2].minutes = payload.longBreakMinutes
       state.volume = payload.volume
+      state.isTimeShownInTitle = payload.isTimeShownInTitle
 
       if (!state.isRunning) {
         state.seconds = state.selectedMode.minutes * 60
