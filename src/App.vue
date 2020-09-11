@@ -1,5 +1,5 @@
 <template>
-  <div class="app" :class="{ finished: isFinished }">
+  <div class="app full-screen-div" :class="{ finished: isFinished }">
     <vue-headful :title="title" />
 
     <a class="settings-icon" @click="showSettings">
@@ -49,12 +49,25 @@ html {
   box-sizing: border-box;
 }
 
-body {
+body,
+html {
   font-family: 'Kumbh Sans', sans-serif;
+  height: 100%;
+  width: 100%;
+  margin: 0;
 }
 
 button:focus {
   outline: 0;
+}
+
+.full-screen-div {
+  width: 100vw;
+  height: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .app {

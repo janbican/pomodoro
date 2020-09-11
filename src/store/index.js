@@ -31,6 +31,9 @@ export const store = new Vuex.Store({
       const minutes = Math.floor(state.seconds / 60)
       return `${('0' + minutes).slice(-2)}:${('0' + seconds).slice(-2)}`
     },
+    doneInPercents(state) {
+      return 100 - (state.seconds / (state.selectedMode.minutes * 60)) * 100
+    },
     pomodoroMinutes(state) {
       return state.modes[0].minutes
     },

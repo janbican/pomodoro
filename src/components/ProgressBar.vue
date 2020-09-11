@@ -5,17 +5,15 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'ProgressBar',
   computed: {
-    ...mapState(['seconds', 'selectedMode']),
+    ...mapGetters(['doneInPercents']),
     barStyle() {
-      // percents of time already done
       return {
-        width: `${100 -
-          (this.seconds / (this.selectedMode.minutes * 60)) * 100}%`
+        width: `${this.doneInPercents}%`
       }
     }
   }
