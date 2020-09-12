@@ -25,6 +25,7 @@ import ModeChoice from '@/components/ModeChoice'
 import ProgressBar from '@/components/ProgressBar'
 import TimeDisplay from '@/components/TimeDisplay'
 import { mapMutations, mapState, mapGetters } from 'vuex'
+import { notify } from '@/notifications.js'
 
 export default {
   name: 'PomodoroTimer',
@@ -43,17 +44,17 @@ export default {
     start() {
       this.timer = setInterval(() => {
         this.decrementSeconds()
-        if (this.isFinished) {
-          this.stop()
-          this.playSound()
-        }
-        // document.title = this.secondsStringFormat
+        if (this.isFinished) this.finished()
       }, 1000)
       this.setIsRunning(true)
     },
+    finished() {
+      this.stop()
+      this.playSound()
+      notify('done')
+    },
     stop() {
       clearInterval(this.timer)
-      // document.title = 'Pomodoro'
       this.setIsRunning(false)
     },
     playSound() {

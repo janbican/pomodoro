@@ -19,6 +19,9 @@ Vue.component('vue-headful', vueHeadful)
 
 Vue.config.productionTip = false
 
+import { notificationPermissionRequest } from '@/notifications.js'
+notificationPermissionRequest()
+
 new Vue({
   store,
   render: h => h(App)
