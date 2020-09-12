@@ -82,18 +82,27 @@ export default {
   name: 'SettingsModal',
   data() {
     return {
+      pomodoroValue: null,
+      shortBreakValue: null,
+      longBreakValue: null,
+      volumeValue: null,
       isTimeShownInTitleValue: null
     }
   },
   created() {
-    this.pomodoroValue = this.pomodoroMinutes
-    this.shortBreakValue = this.shortBreakMinutes
-    this.longBreakValue = this.longBreakMinutes
-    this.volumeValue = this.volume * 100
-    this.isTimeShownInTitleValue = this.isTimeShownInTitle
+    this.loadActualSettings()
   },
   methods: {
+    loadActualSettings() {
+      this.pomodoroValue = this.pomodoroMinutes
+      this.shortBreakValue = this.shortBreakMinutes
+      this.longBreakValue = this.longBreakMinutes
+      this.volumeValue = this.volume * 100
+      this.isTimeShownInTitleValue = this.isTimeShownInTitle
+    },
     save() {
+      if (!this.areSettingsValid()) return
+
       const settings = {
         pomodoroMinutes: this.pomodoroValue,
         shortBreakMinutes: this.shortBreakValue,
@@ -105,7 +114,18 @@ export default {
       this.$modal.hide('modal')
     },
     cancel() {
+      this.loadActualSettings()
       this.$modal.hide('modal')
+    },
+    areSettingsValid() {
+      return (
+        this.isValidMinuteValid(this.pomodoroValue) &&
+        this.isValidMinuteValid(this.shortBreakValue) &&
+        this.isValidMinuteValid(this.longBreakValue)
+      )
+    },
+    isValidMinuteValid(value) {
+      return value != '' && value > 0
     }
   },
   computed: {
