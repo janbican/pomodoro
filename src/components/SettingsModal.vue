@@ -119,12 +119,12 @@ export default {
     },
     areSettingsValid() {
       return (
-        this.isValidMinuteValid(this.pomodoroValue) &&
-        this.isValidMinuteValid(this.shortBreakValue) &&
-        this.isValidMinuteValid(this.longBreakValue)
+        this.isMinuteValueValid(this.pomodoroValue) &&
+        this.isMinuteValueValid(this.shortBreakValue) &&
+        this.isMinuteValueValid(this.longBreakValue)
       )
     },
-    isValidMinuteValid(value) {
+    isMinuteValueValid(value) {
       return value != '' && value > 0
     }
   },
@@ -252,29 +252,24 @@ hr {
   background-color: #eeeeee;
 }
 
-/* On mouse-over, add a grey background color */
 .title-container input ~ .checkmark {
   background-color: #dddddd;
 }
 
-/* When the checkbox is checked, add a blue background */
 .title-container input:checked ~ .checkmark {
   background-color: #f05b56;
 }
 
-/* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
   content: '';
   position: absolute;
   display: none;
 }
 
-/* Show the checkmark when checked */
 .title-container input:checked ~ .checkmark:after {
   display: block;
 }
 
-/* Style the checkmark/indicator */
 .title-container .checkmark:after {
   left: 4px;
   width: 5px;
