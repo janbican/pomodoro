@@ -36,7 +36,10 @@ export default {
   },
   data() {
     return {
-      timer: null
+      timer: null,
+      audio: new Audio(
+        'http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3'
+      )
     }
   },
   methods: {
@@ -58,11 +61,8 @@ export default {
       this.setIsRunning(false)
     },
     playSound() {
-      const audio = new Audio(
-        'http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3'
-      )
-      audio.volume = this.volume
-      audio.play()
+      this.audio.volume = this.volume
+      this.audio.play()
     },
     reset() {
       this.setMode(this.selectedMode)
