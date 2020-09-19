@@ -42,6 +42,10 @@ export default {
       )
     }
   },
+  created() {
+    this.audio.volume = 0
+    this.audio.play()
+  },
   methods: {
     ...mapMutations(['decrementSeconds', 'setIsRunning', 'setMode']),
     start() {
