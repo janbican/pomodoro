@@ -1,24 +1,9 @@
-# pomodoro
+# Pomodoro
 
-## Project setup
-```
-npm install
-```
+The Pomodoro Technique is a time management method developed by Francesco Cirillo in the late 1980s. The technique uses a timer to break down work into intervals, traditionally 25 minutes in length, separated by short breaks. Each interval is known as a pomodoro, from the Italian word for 'tomato', after the tomato-shaped kitchen timer that Cirillo used as a university student.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+[More](https://en.wikipedia.org/wiki/Pomodoro_Technique) about this technique.
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Usage
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+[Link](https://janbican.github.io/pomodoro/)
